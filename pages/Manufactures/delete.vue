@@ -1,20 +1,19 @@
 <template>
   <div>
-    <h2>Delete Manufacturer</h2>
-
-    <div>
+    <div class="main-block">
+      <h1>Delete Manufacturer</h1>
       <form @submit.prevent="submitForm">
-        <label>ID</label>
-        <input id="id" v-model="id" type="text"><br>
-        <div className="flex w-full mt-8">
-          <button
-            className="w-full bg-gray-800 hover:bg-grey-900 text-white text-sm py-2 px-4 font-semibold rounded focus:outline-none focus:shadow-outline h-10">
-            Submit
-          </button>
+        <hr>
+        <label class="icon" for="id"><i class="fa-solid fa-id-card"></i></label>
+        <input id="id" ref="id" v-model="id" type="text" name="id"
+               style="height: 44.2px; margin-top: 10px; width: 228px;"
+               placeholder="Manufacturer ID" required @input="removeResponse"/>
+        <p id="succText"></p>
+        <div class="btn-block">
+          <button>Submit</button>
         </div>
       </form>
     </div>
-
   </div>
 </template>
 
@@ -26,15 +25,27 @@ export default {
       id: ''
     }
   },
+  mounted() {
+    this.$refs.id.focus()
+  },
   methods: {
+    removeResponse() {
+      document.getElementById('succText').innerText = '';
+    },
     submitForm() {
       console.log(this.id)
-      this.$axios.delete('http://localhost:11700/Manufacturer', {data: {
-        manufacturerId: this.id
-      }}).then(response => {
-        alert("Succes")
+      this.$axios.delete('http://localhost:11700/Manufacturer', {
+        data: {
+          manufacturerId: this.id
+        }
+      }).then(response => {
+        document.getElementById("name").value = "";
+        document.getElementById("succText").style.color = "green"
+        document.getElementById("succText").innerText = "Success";
         console.log(response)
       }).catch(error => {
+        document.getElementById("succText").style.color = "red"
+        document.getElementById("succText").innerText = "Error";
         console.log(error)
       })
     }
@@ -42,4 +53,83 @@ export default {
 };
 </script>
 <style>
+html, body {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+body, div, h1, form, input, p {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 16px;
+  color: #666;
+}
+
+h1 {
+  padding: 10px 0;
+  font-size: 32px;
+  font-weight: 300;
+  text-align: center;
+}
+
+p {
+  font-size: 12px;
+}
+
+hr {
+  color: #a9a9a9;
+  opacity: 0.3;
+}
+
+.main-block {
+  max-width: 340px;
+  padding: 10px 0;
+  margin: auto;
+  border-radius: 5px;
+  border: solid 1px #ccc;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, .31);
+  background: #ebebeb;
+}
+
+form {
+  margin: 0 30px;
+}
+
+label#icon {
+  margin: 0;
+  border-radius: 5px 0 0 5px;
+}
+
+#icon {
+  display: inline-block;
+  padding: 9.3px 15px;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
+  background: #666;
+  color: #fff;
+  text-align: center;
+}
+
+.btn-block {
+  margin-top: 10px;
+  text-align: center;
+}
+
+button {
+  width: 100%;
+  padding: 10px 0;
+  margin: 10px auto;
+  border-radius: 5px;
+  border: none;
+  background: #666;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+button:hover {
+  background: #7c7c7c;
+}
 </style>
