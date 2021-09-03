@@ -42,6 +42,7 @@ export default {
         manufacturerId: this.id,
         manufacturerName: this.name
       }).then(response => {
+        document.getElementById("id").value = "";
         document.getElementById("name").value = "";
         document.getElementById("succText").style.color = "green"
         document.getElementById("succText").innerText = "Success";

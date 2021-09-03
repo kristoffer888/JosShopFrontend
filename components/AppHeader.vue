@@ -3,16 +3,13 @@
     <h1 class="title">Joeshop</h1>
     <ul>
       <li>
+        <nuxt-link to="/">Manufacturer List</nuxt-link>
+      </li>
+      <li>
         <nuxt-link to="/Manufactures/create">Create</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/">Read</nuxt-link>
-      </li>
-      <li>
-        <nuxt-link to="/Manufactures/update">Update</nuxt-link>
-      </li>
-      <li>
-        <nuxt-link to="/Manufactures/delete" style="margin: 0" >Delete</nuxt-link>
+        <nuxt-link to="/Manufactures/update" style="margin: 0">Update</nuxt-link>
       </li>
     </ul>
   </header>
@@ -30,7 +27,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  border-bottom: 1px dotted #ccc;
+  border-bottom: 1px dotted #666;
 }
 .header .title {
   font-size: 3rem;
@@ -47,7 +44,7 @@ export default {
   border-radius: 5px;
 }
 
-button:hover {
+a:hover {
   background: #7c7c7c;
 }
 </style>
