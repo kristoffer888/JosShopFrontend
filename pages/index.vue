@@ -2,7 +2,7 @@
   <div>
     <div style="display: flex; justify-content: space-between;">
       <h2>Manufacturer List</h2>
-      <button @click="submitForm()">Delete</button>
+      <button style="margin: 0; width: 82px" @click="joe()">Delete</button>
     </div>
     <table id="myTable">
       <tr>
@@ -18,7 +18,12 @@
 </template>
 
 <script>
+import swal from 'sweetalert';
+import Vue from "vue";
+import VueDarkMode from "@growthbunker/vuedarkmode";
 import AddTable from "../components/AddTable"
+
+Vue.use(VueDarkMode);
 
 export default {
   components: {
@@ -57,14 +62,28 @@ export default {
     }
   },
   methods: {
+    joe() {
+      if (this.toggleBut.length > 0)
+        swal({
+          title: "Are you sure?",
+          text: "Once deleted, you will not be able to recover the data!",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+          .then((willDelete) => {
+            if (willDelete) {
+              this.submitForm()
+            }
+          });
+    },
+
     addArray(id) {
-      console.log(this.toggleBut)
       if (this.toggleBut.includes(id)) {
         this.toggleBut.splice(this.toggleBut.indexOf(id), 1)
       } else {
         this.toggleBut.push(id)
       }
-      console.log(this.toggleBut)
       return this.toggleBut
     },
     submitForm() {
@@ -78,41 +97,11 @@ export default {
         }).catch(error => {
           console.log(error)
         })
+        document.getElementById(this.toggleBut[i]).remove()
       }
       this.toggleBut = []
+      this.$nuxt.refresh()
     }
   },
 };
 </script>
-
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  margin-top: 10px;
-}
-
-td, th {
-  border: 1px solid #bbbbbb;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #e3e3e3;
-}
-
-a {
-  display: inline-block;
-  background: #666;
-  color: #fff;
-  padding: 0.3rem 1rem;
-  margin-right: 0.5rem;
-  border-radius: 5px;
-}
-
-a:hover {
-  background: #7c7c7c;
-}
-</style>

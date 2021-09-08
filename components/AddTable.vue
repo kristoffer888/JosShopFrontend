@@ -1,6 +1,6 @@
 <template>
-    <tr>
-      <td style="width: 30px;"><input @click="addArray(manufacturer.manufacturerId)" type="checkbox"/></td>
+    <tr :id="manufacturer.manufacturerId">
+      <td style="width: 30px;"><input :id="manufacturer.manufacturerId" type="checkbox" @click="addArray(manufacturer.manufacturerId)"/></td>
       <td>{{ manufacturer.manufacturerName }}</td>
       <td>{{ manufacturer.manufacturerId }}</td>
     </tr>
